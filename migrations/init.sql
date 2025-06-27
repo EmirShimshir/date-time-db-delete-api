@@ -15,19 +15,19 @@ CREATE TABLE users_y2025m01 PARTITION OF users
     FOR VALUES FROM ('2025-01-01') TO ('2025-02-01');
 
 CREATE TABLE users_y2025m02 PARTITION OF users
-    FOR VALUES FROM ('2023-02-01') TO ('2023-03-01');
+    FOR VALUES FROM ('2025-02-01') TO ('2025-03-01');
 
 CREATE TABLE users_y2025m03 PARTITION OF users
-    FOR VALUES FROM ('2023-03-01') TO ('2023-04-01');
+    FOR VALUES FROM ('2025-03-01') TO ('2025-04-01');
 
 CREATE TABLE users_y2025m04 PARTITION OF users
-    FOR VALUES FROM ('2023-04-01') TO ('2023-05-01');
+    FOR VALUES FROM ('2025-04-01') TO ('2025-05-01');
 
 CREATE TABLE users_y2025m05 PARTITION OF users
-    FOR VALUES FROM ('2023-05-01') TO ('2023-06-01');
+    FOR VALUES FROM ('2025-05-01') TO ('2025-06-01');
 
 CREATE TABLE users_y2025m06 PARTITION OF users
-    FOR VALUES FROM ('2023-06-01') TO ('2023-07-01');
+    FOR VALUES FROM ('2025-06-01') TO ('2025-07-01');
 
 
 -- Настройка autovacuum для каждой партиции
@@ -64,6 +64,6 @@ ALTER TABLE users_y2025m06 SET (
 -- Генерируем 100000 строк, равномерно распределённых по датам
 INSERT INTO users (created_at, data)
 SELECT
-    timestamp '2023-02-01' + (random() * (timestamp '2023-07-01' - timestamp '2023-02-01')),
+    timestamp '2025-02-01' + (random() * (timestamp '2025-07-01' - timestamp '2025-02-01')),
     jsonb_build_object('field', gen_random_uuid()::text)
-FROM generate_series(1, 100000);
+FROM generate_series(1, 1000000);
