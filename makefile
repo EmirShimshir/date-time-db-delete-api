@@ -9,4 +9,6 @@ down:
 restart: down run
 
 test: restart
+	@echo "Ожидание 20 секунд..."
+	@sleep 20
 	sh ./test/curl.sh

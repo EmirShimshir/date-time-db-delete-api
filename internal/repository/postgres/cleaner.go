@@ -107,7 +107,7 @@ func (r *postgresRepository) TryAcquireLock(ctx context.Context, tableName strin
 		if err != nil {
 			r.logger.Error("Failed to release advisory lock",
 				zap.String("table", tableName),
-				zap.Uint64("lock_id", lockID),
+				zap.Uint64("lock_id", uint64(lockID)),
 				zap.Error(err))
 		}
 	}
@@ -157,10 +157,11 @@ func (r *postgresRepository) ValidateTable(ctx context.Context, tableName string
 // Вспомогательные функции
 
 // generateLockID генерирует уникальный ID для advisory lock
-func (r *postgresRepository) generateLockID(tableName string) uint64 {
+func (r *postgresRepository) generateLockID(tableName string) int64 {
 	h := fnv.New64a()
 	h.Write([]byte(tableName))
-	return h.Sum64()
+	u := h.Sum64()
+	return int64(u)
 }
 
 // isValidTableName проверяет, является ли имя таблицы безопасным для использования в SQL
