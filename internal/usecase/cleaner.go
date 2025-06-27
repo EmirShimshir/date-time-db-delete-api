@@ -53,7 +53,6 @@ func (uc *cleanerUseCase) CleanTable(ctx context.Context, req entities.CleanupRe
 	defer unlock()
 
 	// Логируем начало операции
-	// Логируем начало операции
 	uc.logger.Info("Starting data cleanup",
 		zap.String("table", req.TableName),
 		zap.Time("before_date", req.BeforeDate),
